@@ -1,0 +1,256 @@
+% LaTeX Package for Physics Report 
+% By Ddddavid
+% 2022/3/5
+
+\NeedsTeXFormat{LaTeX2e} % 最低版本要求
+\ProvidesPackage{physics_report} % 包名
+\makeatletter
+
+\RequirePackage{expl3, xkeyval, xparse}
+\RequirePackage{amsmath, amssymb, mathtools}
+\RequirePackage{tabularx, longtable, tabularray}
+\RequirePackage{verbatim, color, multirow}
+\RequirePackage{graphicx, subfigure, caption}
+\RequirePackage{float, booktabs, wrapfig, siunitx}
+\RequirePackage{fancyhdr, multicol, caption}
+
+\RequirePackage[sort&compress]{gbt7714}
+
+\RequirePackage{geometry}
+
+% tabularray 导入amsmath,booktabs和siunitx
+\UseTblrLibrary{amsmath} % +bmatrix +pmatrix 环境
+\UseTblrLibrary{booktabs} % \toprule \midrule \bottomrule 
+\UseTblrLibrary{siunitx} % \qty \si \SI \num
+%
+
+
+% 页面版式参数设置 -->
+\geometry{
+    a4paper,
+    left=2cm,
+    right=2cm,
+    top=2cm,
+    bottom=2cm
+}
+% \newcommand{\setgeometry}[1]{\geometry{#1}}
+\pagestyle{plain} % 页码位置
+\linespread{1.5} % 两倍行距
+% <--
+
+% % 引用排序方式
+% \newcommand{\setgbt}[1]{\}
+
+\captionsetup[figure]{labelsep=period}
+\captionsetup[table]{labelsep=period}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+% \floatsetup{floatrowsep=columnsep}
+% \newfloatcommand{figurebox}{figure}[\nocapbeside][\dimexpr(\textwidth-\columnsep)*3/7\relax]
+% \newfloatcommand{tablebox}{table}[\nocapbeside][\dimexpr(\textwidth-\columnsep)*4/7\relax]
+
+% 定义中文字体
+\let\songti\relax
+\let\heiti\relax
+\let\fangsong\relax
+\let\kaishu\relax
+\newCJKfontfamily\sonti{Source Han Serif SC VF}
+\newCJKfontfamily\heiti{Source Han Sans CN}
+\newCJKfontfamily\fangsong{FZFangSong-Z02S}
+\newCJKfontfamily\kaishu{FZKai-Z03}
+
+% 定义中文字号
+% \newcommand{\yihao}{\fontsize{26pt}{39pt}\selectfont}
+% \newcommand{\xiaoyi}{\fontsize{24pt}{36pt}\selectfont}   
+% \newcommand{\erhao}{\fontsize{22pt}{33pt}\selectfont}          
+% \newcommand{\xiaoer}{\fontsize{18pt}{27pt}\selectfont}          
+% \newcommand{\sanhao}{\fontsize{16pt}{24pt}\selectfont}        
+% \newcommand{\xiaosan}{\fontsize{15pt}{22.5pt}\selectfont}        
+% \newcommand{\sihao}{\fontsize{14pt}{21pt}\selectfont}            
+% \newcommand{\xiaosi}{\fontsize{12pt}{18pt}\selectfont}            
+% \newcommand{\wuhao}{\fontsize{10.5pt}{15.75pt}\selectfont}
+% \newcommand{\xiaowu}{\fontsize{9pt}{13.5pt}\selectfont}    
+% \newcommand{\liuhao}{\fontsize{7.5pt}{11.25pt}\selectfont}
+
+
+% CTeX Section标题样式设置 -->
+\ctexset{
+    section = {
+        format += \zihao{4} \heiti \raggedright,
+        % name = {,\hspace{1em}},
+        number = \arabic{section},
+        beforeskip = 1.0ex plus 0.2ex minus .2ex,
+        afterskip = 1.0ex plus 0.2ex minus .2ex,
+        aftername = \hspace{1em}
+    },
+    subsection = {
+        format = \zihao{-4} \songti \raggedright,
+        % name = {,\hspace{.5em}},
+        number = {\arabic{section}.\arabic{subsection}},
+        beforeskip = 1.0ex plus 0.2ex minus .2ex,
+        afterskip = 1.0ex plus 0.2ex minus .2ex,
+        aftername = \hspace{1em}
+    },
+    subsubsection = {
+        format = \zihao{-4} \songti \raggedright,
+        % name = {,\hspace{.5em}},
+        number = {\arabic{section}.\arabic{subsection}.\arabic{subsubsection}},
+        beforeskip = 1.0ex plus 0.2ex minus .2ex,
+        afterskip = 1.0ex plus 0.2ex minus .2ex,
+        aftername = \hspace{1em}
+    }
+}
+% <--
+
+
+
+% 定义颜色
+\definecolor{red}{rgb}{1,0,0}
+\definecolor{blue}{rgb}{0,0.7,0.85}
+\definecolor{yellow}{rgb}{0.95,0.95,0.5}
+\definecolor{white}{rgb}{1,1,1}
+
+\newcommand{\Red}[1]{\textcolor{red}{#1}}
+\newcommand{\Blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\Yellow}[1]{\textcolor{yellow}{#1}}
+\newcommand{\White}[1]{\textcolor{white}{#1}}
+% <--
+
+
+% 开头空格
+\newcommand{\indt}{\mbox{\quad\quad}}
+% 整段缩进
+\newcommand{\pindt}[1]{
+    \begin{itemize}\setlength{\itemsep}{-1pt}
+        \item[] #1
+    \end{itemize}}
+% 全微分符号
+\newcommand{\D}{{\rm d}}
+% 图像占位
+\newcommand{\hpic}[1][HERE'S A PIC]{
+    \begin{figure}[H]
+        \centering
+        \caption{
+            \fcolorbox{white}{yellow}{\textcolor{red}{\textbf{#1}}}
+        }
+        \label{fig:#1}
+    \end{figure}
+}
+% 化学式
+\newcommand{\chem}[1]{{$\rm #1$}}
+% 字号设置
+\newcommand{\setfontsize}[2]{\fontsize{#1}{#2}\selectfont}
+
+% 中文摘要
+% \renewcommand{\abstract}[1]{\noindent\textbf{摘要：}#1}
+\renewcommand{\abstract}[1]{
+    \par{\zihao{-4} 
+    \begin{center}\textbf{摘~要}\end{center}
+    #1
+    }
+}
+% 中文关键词
+\newcommand{\keywords}[1]{\par\noindent{
+    \zihao{-4}\textbf{关键词：}#1
+    }
+}
+% PACS
+\newcommand{\pacs}[1]{\par\noindent{
+    \zihao{-4}\textbf{PACS：}#1
+    }
+}
+
+
+% 标题 和 作者变量 -->
+\renewcommand{\title}[1]{
+    \def\pr@thetitle{
+        \begin{center}
+            {\heiti\zihao{3}#1}
+        \end{center} 
+    }
+}
+\renewcommand{\author}[1]{
+    \def\pr@theauther{
+        \begin{center}
+            {\fangsong\zihao{4}#1}
+        \end{center}
+    }
+}
+\newcommand{\institude}[1]{
+    \def\pr@theinstitude{
+        \begin{center}
+            {\songti\zihao{-4}#1}
+        \end{center}
+    }
+}
+\renewcommand{\maketitle}{
+    \pr@thetitle
+    \vspace{-1.5em}
+    \pr@theauther
+    \vspace{-2em}
+    \pr@theinstitude
+}
+% 上标序号  数学模式
+\newcommand{\superscript}[1]{{${}^{#1}$}}
+% <--
+
+
+% 参考文献 -->
+% \bibreference[key=value]{bibfile.bib}
+%% style = [numerical, author-year] default=numerical
+\define@choicekey*+[pr]{reference}{style}[\val\pr@sty]{
+        numerical,author-year
+}{
+    \ifcase\pr@sty\relax
+        \bibliographystyle{gbt7714-numerical}
+    \or 
+        \bibliographystyle{gbt7714-author-year}
+    \fi
+}{
+    \PackageWarning{physics_report}{Option of style is not allowed. Set to default=numerical instead.}
+    \bibliographystyle{gbt7714-numerical}
+}
+%% nocite = [true, false] default=true
+\define@boolkey+[pr]{reference}{nocite}[true]{}{
+    \PackageWarning{physics_report}{Option of nocite using default=true.}
+}
+%% if reference start a newpage 
+%% newpage = [true, false] default=false
+\define@boolkey+[pr]{reference}{newpage}[true]{}{
+    \PackageWarning{physics_report}{Option of newpage using default=false.}
+}
+
+\newcommand{\bibreference}[2][nocite,newpage=false,style=numerical]{
+    \setkeys*[pr]{reference}{nocite=true}
+    \setkeys*[pr]{reference}{newpage=false}
+    \setkeys*[pr]{reference}{#1}
+    \ifpr@reference@nocite
+        \nocite{*}
+    \fi 
+    \ifpr@reference@newpage
+        \newpage
+    \fi
+    \bibliography{#2}
+}
+% <--
+
+
+% 新tabu环境 可自动分配宽度
+%% \begin{tabu}{<width>}{<colspec>}
+%%      contents
+%% \end{tabu}   
+\newenvironment{tabu}[2]
+{
+    \begin{tblr}{
+        width = #1,
+        colspec = {#2}
+    }
+}
+{
+    \end{tblr}
+}
+% <--
+
+
+\makeatother
+\endinput
