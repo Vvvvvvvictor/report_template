@@ -12,7 +12,7 @@
 \RequirePackage{verbatim, color, multirow}
 \RequirePackage{graphicx, subfigure, caption}
 \RequirePackage{float, booktabs, wrapfig, siunitx}
-\RequirePackage{fancyhdr, multicol, caption}
+\RequirePackage{fancyhdr, multicol, caption, bicaption}
 
 \RequirePackage[sort&compress]{gbt7714}
 
@@ -41,9 +41,11 @@
 % % 引用排序方式
 % \newcommand{\setgbt}[1]{\}
 
-\captionsetup[figure]{labelsep=period}
-\captionsetup[table]{labelsep=period}
-\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+% 图表标题设置
+\captionsetup[figure]{labelsep=space}
+\captionsetup[table]{labelsep=space}
+\captionsetup[figure][bi-second]{name=Fig.,labelsep=period} %设置图的英文编号前缀
+\captionsetup[table][bi-second]{name=Tab.,labelsep=period} %设置表的英文编号前缀
 
 % \floatsetup{floatrowsep=columnsep}
 % \newfloatcommand{figurebox}{figure}[\nocapbeside][\dimexpr(\textwidth-\columnsep)*3/7\relax]
