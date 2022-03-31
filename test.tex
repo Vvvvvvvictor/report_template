@@ -1,6 +1,10 @@
 \documentclass[AutoFakeBold]{ctexart}
 \usepackage{physics_report}
 
+% Essential!!!
+% Only for test, delete when use this template!
+\usepackage{lipsum}
+
 
 \title{光学模块实验报告}
 \author{author\superscript{1)} \quad author\superscript{1)} }
@@ -21,27 +25,33 @@
     % \columnseprule=1pt         % 实现插入分隔线 
     \begin{multicols}{2}
         \section{第一节}
-        % 前面配上文字，并使用\\效果更佳
-        就像这样\\
-        \begin{tabu}{.85\linewidth}{|X[1,c]|X[2,c]|X[3,c]|}
+        前面配上一段文字，配合使用\textbackslash\textbackslash 效果更佳，就像这样\\
+        \begin{tabu}{\linewidth}{|X[1,c]|X[2,c]|X[3,c]|}
             A & B & C \\
             \hline
             1 & 2 & 3
         \end{tabu}
 
-        dsflksd\\
-        ksdfjlasdjlf\\
-        lksdjflajdfsa\\
-        dksfaksdfkj\\
-        skdflkasjdflksa\\
-        ksdfajsldfjlsa\\
-        ksdjlfakjsdlf\\
-        dsjfajsdlfa\\skdafljasldfkjsal\\ksdjalfjs\\skaldjflsajf\\ksjdflasjlf\\sjflaksjdlfsja\\asdfjljaslkj\\
-        \begin{figure}[H]
-            \includegraphics[width=.85\linewidth]{angle.eps}
-            \bicaption{一个图}{a picture}
-        \end{figure}
+        或者包在table环境里使用！
+        \begin{table}[H]
+            \begin{tblr}{
+                width = \linewidth,
+                colspec = {X[2.5,c,m]|X[1,c,m]X[1,c,m]X[1,c,m]X[1,c,m]X[1,c,m]X[1,c,m]X[1,c,m]X[1,c,m]X[1,c,m]}
+            }
+            \toprule
+            $I/\si{\milli\ampere}$ & 20    & 30    & 40    & 50    & 60    & 70    & 80    & 90    & 100 \\
+            \midrule
+            $U_2/\si{V}$ & 0.56  & 1.84  & 3.86  & 5.56  & 3.4   & 1.88  & 0.92  & 0.52  & 0.28 \\
+            $U_1/\si{V}$ & 7.88  & 7.6   & 6.92  & 5.8   & 6.68  & 7     & 7.24  & 7.24  & 7.16 \\
+            \bottomrule
+            \end{tblr}
+        \end{table}
 
+        \lipsum[1]
+        \begin{figure}[H]
+            \includegraphics[width=\linewidth]{angle.eps}
+            \bicaption{一个图}{a picture}\label{fig:a}
+        \end{figure}
         \begin{table}[H]
             \begin{tblr}{
                 width = \linewidth,
@@ -56,8 +66,10 @@
                 ~ & ~ & 独立的格子2 \\
                 \hline 
             \end{tblr}
-            \bicaption{一个表}{a table}
+            \bicaption{一个表}{a table}\label{tab:a}
         \end{table}
+
+        I have made a picture pic.\ref{fig:a} and a table tab.\ref{tab:a}.
     \end{multicols}
     
     %  \begin{longtabu}{
@@ -67,20 +79,7 @@
     %     A & B & C \\
     %     1 & 2 & 3
     % \end{longtabu}
-    \begin{table}
-        \begin{tblr}{
-            width = .9\linewidth,
-            colspec = {X[1,c,m]|X[1,c,m]X[1,c,m]X[1,c,m]X[1,c,m]X[1,c,m]X[1,c,m]X[1,c,m]X[1,c,m]X[1,c,m]}
-        }
-        \toprule
-        $I/\si{\milli\ampere}$ & 20    & 30    & 40    & 50    & 60    & 70    & 80    & 90    & 100 \\
-        \midrule
-        $U_2/\si{V}$ & 0.56  & 1.84  & 3.86  & 5.56  & 3.4   & 1.88  & 0.92  & 0.52  & 0.28 \\
-        $U_1/\si{V}$ & 7.88  & 7.6   & 6.92  & 5.8   & 6.68  & 7     & 7.24  & 7.24  & 7.16 \\
-        \bottomrule
-        \end{tblr}
-    \end{table}
-    
+   
 
     % \bibliography{bibtest}
     \bibreference[nocite]{ref}
