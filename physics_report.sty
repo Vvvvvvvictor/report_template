@@ -215,21 +215,21 @@
     }
 }
 \newcommand{\engtit}[1]{
-    \def\pr@theinstitude{
+    \def\pr@engtit{
         \begin{center}
             {\heiti\fontsize{17pt}{25.5pt}\selectfont#1}
         \end{center}
     }
 }
 \newcommand{\engauth}[1]{
-    \def\pr@theinstitude{
+    \def\pr@engauth{
         \begin{center}
             {\zihao{5}#1}
         \end{center}
     }
 }
 \newcommand{\engins}[1]{
-    \def\pr@theinstitude{
+    \def\pr@engins{
         \begin{center}
             {\fontsize{10pt}{15pt}\selectfont#1}
         \end{center}
@@ -241,6 +241,13 @@
     \pr@theauther
     \vspace{-2em}
     \pr@theinstitude
+}
+\newcommand{\makeenglishtitle}{
+    \pr@engtit
+    \vspace{-1.5em}
+    \pr@engauth
+    \vspace{-2em}
+    \pr@engins
 }
 % 上标序号  数学模式
 \newcommand{\superscript}[1]{{${}^{#1}$}}
