@@ -16,6 +16,7 @@
 \RequirePackage{float, booktabs, wrapfig, siunitx}
 \RequirePackage{fancyhdr, multicol, bicaption}
 \RequirePackage[justification=centering]{caption}
+\RequirePackage{subfigure}
 
 
 \RequirePackage[sort&compress]{gbt7714}
@@ -32,14 +33,15 @@
 % 页面版式参数设置 -->
 \geometry{
     a4paper,
-    left=2cm,
-    right=2cm,
+    left=1.5cm,
+    right=1.5cm,
     top=2cm,
     bottom=2cm
 }
 % \newcommand{\setgeometry}[1]{\geometry{#1}}
 \pagestyle{plain} % 页码位置
 \linespread{1.5} % 两倍行距
+\setlength\columnsep{2em}
 % <--
 
 % % 引用排序方式
@@ -147,25 +149,48 @@
 % 字号设置
 \newcommand{\setfontsize}[2]{\fontsize{#1}{#2}\selectfont}
 
-% 中文摘要
+% 摘要和关键词 -->
 % \renewcommand{\abstract}[1]{\noindent\textbf{摘要：}#1}
-\renewcommand{\abstract}[1]{
-    \par{\songti\zihao{5} 
-    \begin{center}{\heiti\bfseries 摘~要}\end{center}
-    #1
+\define@boolkey+[pr]{abstract}{english}[true]{}{
+    \PackageWarning{physics_report}{Option of nocite using default=true.}
+}
+\define@boolkey+[pr]{keywords}{english}[true]{}{
+    \PackageWarning{physics_report}{Option of nocite using default=true.}
+}
+% 摘要 英文使用\abstract[english]{}
+\renewcommand{\abstract}[2][english=false]{
+    \setkeys*[pr]{abstract}{#1}
+    \ifpr@abstract@english
+        \def\pr@abstract@title{
+            Abstract
+        }
+    \else
+        \def\pr@abstract@title{
+            摘~~要
+        }
+    \fi
+    \par{\zihao{-4} 
+        \begin{center}\textbf{\pr@abstract@title}\end{center}
+        #2
     }
 }
-% 中文关键词
-\newcommand{\keywords}[1]{\par\noindent{
-    \zihao{5}{\heiti\bfseries 关键词：}#1
+% 关键词 英文使用\keywords[english]{}
+\newcommand{\keywords}[2][english=false]{
+    \setkeys*[pr]{keywords}{#1}
+    \ifpr@keywords@english
+        \def\pr@keywords@title{Keywords:\ }
+    \else
+        \def\pr@keywords@title{关键词：}
+    \fi
+        \par\noindent{
+    \zihao{-4}\textbf{\pr@keywords@title}#2
     }
 }
 % PACS
 \newcommand{\pacs}[1]{\par\noindent{
-    \zihao{5}{\heiti\bfseries PACS：}#1
+    \zihao{-4}\textbf{PACS：}#1
     }
 }
-
 
 % 标题 和 作者变量 -->
 \renewcommand{\title}[1]{
@@ -189,6 +214,27 @@
         \end{center}
     }
 }
+\newcommand{\engtit}[1]{
+    \def\pr@theinstitude{
+        \begin{center}
+            {\heiti\fontsize{17pt}{25.5pt}\selectfont#1}
+        \end{center}
+    }
+}
+\newcommand{\engauth}[1]{
+    \def\pr@theinstitude{
+        \begin{center}
+            {\zihao{5}#1}
+        \end{center}
+    }
+}
+\newcommand{\engins}[1]{
+    \def\pr@theinstitude{
+        \begin{center}
+            {\fontsize{10pt}{15pt}\selectfont#1}
+        \end{center}
+    }
+}
 \renewcommand{\maketitle}{
     \pr@thetitle
     \vspace{-1.5em}
@@ -201,7 +247,6 @@
 % <--
 % 通讯作者
 \newcommand{\comauthor}[1]{{${}^{#1\dagger}$}}
-
 
 % 参考文献 -->
 % \bibreference[key=value]{bibfile.bib}
