@@ -20,7 +20,6 @@
 
 
 \RequirePackage[sort&compress]{gbt7714}
-
 \RequirePackage{geometry}
 
 % tabularray 导入amsmath,booktabs和siunitx
@@ -112,7 +111,7 @@
 
 
 
-% 定义颜色
+% 定义颜色-->
 \definecolor{red}{rgb}{1,0,0}
 \definecolor{blue}{rgb}{0,0.7,0.85}
 \definecolor{yellow}{rgb}{0.95,0.95,0.5}
@@ -124,7 +123,7 @@
 \newcommand{\White}[1]{\textcolor{white}{#1}}
 % <--
 
-
+% 自定义命令-->
 % 开头空格
 \newcommand{\indt}{\mbox{\quad\quad}}
 % 整段缩进
@@ -132,8 +131,6 @@
     \begin{itemize}\setlength{\itemsep}{-1pt}
         \item[] #1
     \end{itemize}}
-% 全微分符号
-\newcommand{\D}{{\rm d}}
 % 图像占位
 \newcommand{\hpic}[1][HERE'S A PIC]{
     \begin{figure}[H]
@@ -145,9 +142,25 @@
     \end{figure}
 }
 % 化学式
-\newcommand{\chem}[1]{{$\rm #1$}}
+\newcommand{\chem}[1]{
+    \ifmmode
+        {\rm #1}
+    \else
+        {$\rm #1$}
+    \fi
+}
+% 全微分符号
+\newcommand{\D}{
+    \ifmmode
+        {\rm d}
+    \else
+        ${\rm d}$
+    \fi
+}
 % 字号设置
 \newcommand{\setfontsize}[2]{\fontsize{#1}{#2}\selectfont}
+% <--
+
 
 % 摘要和关键词 -->
 % \renewcommand{\abstract}[1]{\noindent\textbf{摘要：}#1}
@@ -235,6 +248,13 @@
         \end{center}
     }
 }
+% 上标序号  数学模式
+\newcommand{\superscript}[1]{{${}^{#1}$}}
+% 通讯作者
+\newcommand{\comauthor}[1]{{${}^{#1\dagger}$}}
+% <--
+
+% 插入中英文标题-->
 \renewcommand{\maketitle}{
     \pr@thetitle
     \vspace{-1.5em}
@@ -249,11 +269,7 @@
     \vspace{-2em}
     \pr@engins
 }
-% 上标序号  数学模式
-\newcommand{\superscript}[1]{{${}^{#1}$}}
 % <--
-% 通讯作者
-\newcommand{\comauthor}[1]{{${}^{#1\dagger}$}}
 
 % 参考文献 -->
 % \bibreference[key=value]{bibfile.bib}
