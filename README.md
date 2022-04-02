@@ -8,7 +8,7 @@ Accquire Source Han Serif SC VF and Source Han Sans CN from：https://github.com
 
 Accquire  FZFangSong-Z02S and FZKai-Z03 from: https://www.foundertype.com/index.php/FontInfo/index/id/128 & https://www.foundertype.com/index.php/FontInfo/index/id/137
 
-PLEASE apply those font for all the users in Windows OS!!!!!
+PLEASE APPLY THOSE FONTS FOR ALL THE USERS IN WINDOWS OS!!!!!
 
 There are some example and commet in the 'test.tex' and 'report_template.sty'!
 
