@@ -1,5 +1,6 @@
-*.bib
 *.aux
-*.pdf
 *.log
 *.gz
+*.bbl
+*.blg
+*.out
