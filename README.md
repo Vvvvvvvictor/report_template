@@ -7,3 +7,5 @@ If you don't have those font types, please download them or comment 59~66
 Accquire Source Han Serif SC VF and Source Han Sans CN from：https://github.com/adobe-fonts
 
 There are some example and commet in the 'test.tex' and 'report_template.sty'!
+
+You can find more about PACS and keywords in: https://wulixb.iphy.ac.cn/news/xiangguanziliaoxiazai.htm
